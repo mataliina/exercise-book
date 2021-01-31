@@ -1,17 +1,23 @@
 import React, { useRef, useState, useEffect } from 'react'
 import AddTodoDialog from './AddTodoDialog'
-
 import axios from 'axios'
 import MaterialTable from 'material-table'
 import { DateTime } from 'luxon'
+
+//icons
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline'
 import DoneIcon from '@material-ui/icons/Done'
 import SentimentVeryDissatisfiedIcon from '@material-ui/icons/SentimentVeryDissatisfied'
 import EmojiEmotionsIcon from '@material-ui/icons/EmojiEmotions'
+// import FirstPage from '@material-ui/icons/FirstPage'
+// import LastPage from '@material-ui/icons/LastPage'
+// import ChevronLeft from '@material-ui/icons/ChevronLeft'
+// import ChevronRight from '@material-ui/icons/ChevronRight'
+// import Search from '@material-ui/icons/Search'
+// import Clear from '@material-ui/icons/Clear'
 
 const TodoTable = () => {
 	//const [todoData, setTodoData] = useState([])
-
 	// useEffect(() => {
 	// 	axios.get('http://localhost:8000/todos').then((result) => {
 	// 		console.log('result: ', result.data)
@@ -25,10 +31,15 @@ const TodoTable = () => {
 
 	const getData = (params) => {
 		let resultData = { totalCount: 0, page: params.page, data: [] }
-		return axios.get('http://localhost:8000/todos').then((result) => {
-			resultData.data = result.data
-			return resultData
-		})
+		return axios
+			.get('http://localhost:8000/todos')
+			.then((result) => {
+				resultData.data = result.data
+				return resultData
+			})
+			.catch((err) => {
+				console.log('Error: ', err)
+			})
 	}
 
 	useEffect(() => {
@@ -37,6 +48,15 @@ const TodoTable = () => {
 			setUpdate(false)
 		}
 	}, [update])
+
+	// const icons = {
+	// 	FirstPage: () => <FirstPage />,
+	// 	LastPage: () => <LastPage />,
+	// 	NextPage: () => <ChevronRight />,
+	// 	PreviousPage: () => <ChevronLeft />,
+	// 	Search: () => <Search />,
+	// 	ResetSearch: () => <Clear />,
+	// }
 
 	return (
 		<>
@@ -53,6 +73,7 @@ const TodoTable = () => {
 				}}
 				data={getData}
 				title='Tehtävät'
+				//icons={icons}
 				columns={[
 					{
 						title: 'Tila',
@@ -91,6 +112,7 @@ const TodoTable = () => {
 					{
 						title: 'Määräpäivä',
 						field: 'dueDate',
+						defaultSort: 'desc',
 						cellStyle: {
 							backgroundColor: '#fdecf5',
 							color: 'black',
@@ -107,7 +129,7 @@ const TodoTable = () => {
 							backgroundColor: '#fdecf5',
 							color: 'black',
 						},
-						defaultSort: 'desc',
+
 						render: (rowData) => {
 							let date = DateTime.fromISO(rowData.created)
 							return date.toLocaleString(DateTime.DATETIME_SHORT)
@@ -117,7 +139,7 @@ const TodoTable = () => {
 				actions={[
 					{
 						icon: () => <DoneIcon />,
-						tooltip: 'Merkitse tehdyksi',
+						tooltip: 'Merkitse tehdyksi/tekemättömäksi',
 						onClick: (event, rowData) => {
 							let url = 'http://localhost:8000/todos/' + rowData.id
 							console.log(rowData)
@@ -127,12 +149,17 @@ const TodoTable = () => {
 								description: rowData.description,
 								dueDate: rowData.dueDate,
 								created: rowData.created,
-								isDone: true,
+								isDone: !rowData.isDone,
 							}
-							axios.put(url, newData).then((res) => {
-								console.log('result', res)
-								tableRef.current.onQueryChange()
-							})
+							axios
+								.put(url, newData)
+								.then((res) => {
+									console.log('result', res)
+									tableRef.current.onQueryChange()
+								})
+								.catch((err) => {
+									console.log('Error: ', err)
+								})
 						},
 					},
 					{
@@ -140,10 +167,15 @@ const TodoTable = () => {
 						tooltip: 'Poista tehtävä',
 						onClick: (event, rowData) => {
 							let url = 'http://localhost:8000/todos/' + rowData.id
-							axios.delete(url).then((res) => {
-								console.log(res)
-								tableRef.current.onQueryChange()
-							})
+							axios
+								.delete(url)
+								.then((res) => {
+									console.log(res)
+									tableRef.current.onQueryChange()
+								})
+								.catch((err) => {
+									console.log('Error: ', err)
+								})
 						},
 					},
 				]}

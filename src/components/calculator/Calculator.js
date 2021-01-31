@@ -11,6 +11,7 @@ const useStyles = makeStyles({
 		border: '1px solid pink',
 		borderRadius: '5px',
 		padding: '5px',
+		backgroundColor: 'white',
 	},
 	input: {
 		border: '1px solid pink',

@@ -5,8 +5,8 @@
       "name": "Maija Meikäläinen",
       "description": "tienaa 100 tonnia",
       "dueDate": "2021-02-02T14:59:00.000Z",
-      "isDone": false,
-      "created": "2021-01-30T17:00:49.351+02:00"
+      "created": "2021-01-30T17:00:49.351+02:00",
+      "isDone": true
     },
     {
       "id": "3f83a738-0dd3-4f37-bbfb-28afcc191cb7",
@@ -45,16 +45,24 @@
       "name": "uusi herkullinen tehtävä",
       "description": "mussutetaan sipsejä",
       "dueDate": "2021-02-25T17:45:00.000Z",
-      "isDone": false,
-      "created": "2021-01-30T17:53:56.668Z"
+      "created": "2021-01-30T17:53:56.668Z",
+      "isDone": false
     },
     {
       "id": "cfedf130-a1ac-432b-ab0e-2aa9b3c59a3f",
       "name": "nukuta kissa",
       "description": "rantu nukkuu",
       "dueDate": "2021-02-12T17:58:00.000Z",
-      "isDone": false,
-      "created": "2021-01-30T17:59:36.745Z"
+      "created": "2021-01-30T17:59:36.745Z",
+      "isDone": false
+    },
+    {
+      "id": "26356424-3d3a-491a-8385-7ee85549ea2e",
+      "name": "testataan routet",
+      "description": "toimiikos tämäkin",
+      "dueDate": "2021-02-19T08:59:00.000Z",
+      "created": "2021-01-31T09:04:01.267Z",
+      "isDone": true
     }
   ]
 }

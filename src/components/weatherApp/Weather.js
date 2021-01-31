@@ -27,19 +27,16 @@ const Weather = () => {
 
 	const [location, setLocation] = useState('')
 	const [result, setResult] = useState({})
-	const [successError, setSuccessError] = useState(false)
 
 	//console.log('result statesta_ ', result)
 
 	const getWeather = (loc) => {
-		setSuccessError(false)
 		let url = 'http://api.weatherstack.com/current?access_key=' + process.env.WEATHER_API_KEY + '&query=' + loc
 
 		axios
 			.get(url)
 			.then((result) => {
-				//console.log('result ', result)
-				console.log('haku tehty')
+				console.log('haku tehty: ', result)
 				setResult(result.data)
 			})
 			.catch((error) => {
